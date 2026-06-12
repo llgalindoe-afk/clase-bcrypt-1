@@ -59,9 +59,36 @@ const getAdmin = (req, res) => {
   })
 }
 
+const register = async (req, res) => {
+  try {
+    const { email, password } = req.body
+
+    if (!email || !password) {
+      return res.status(400).json({
+        ok: false,
+        error: "Email y contraseña son obligatorios",
+      })
+    }
+
+    const user = await authService.register(email, password)
+
+    res.status(201).json({
+      ok: true,
+      message: "Usuario registrado con éxito",
+      data: user,
+    })
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      error: error.message,
+    })
+  }
+}
+
 export const authController = {
   login,
   logout,
   getProfile,
   getAdmin,
+  register,
 }

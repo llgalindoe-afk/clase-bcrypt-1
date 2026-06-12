@@ -10,20 +10,11 @@ if (!process.env.JWT_SECRET) {
 }
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// ... Tu configuración de middlewares y rutas ...
-const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use(authRouter)
-
-// Arrancar el servidor solo si pasó la validación
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
-});
 
 export default app

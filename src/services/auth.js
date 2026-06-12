@@ -30,4 +30,30 @@ const login = async (email, password) => {
   return token
 }
 
-export const authService = { login }
+const register = async (email, password) => {
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  })
+
+  if (existingUser) {
+    throw new Error("El email ya está registrado")
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10)
+
+  const user = await prisma.user.create({
+    data: {
+      email,
+      password: hashedPassword,
+    },
+  })
+
+  return {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt,
+  }
+}
+
+export const authService = { login, register }
