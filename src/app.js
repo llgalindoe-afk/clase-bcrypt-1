@@ -1,5 +1,6 @@
 import express from "express"
 import cookieParser from "cookie-parser"
+import helmet from "helmet"
 import authRouter from "./routes/authRoutes.js"
 import productsRouter from "./routes/products.routes.js"
 import dotenv from 'dotenv';
@@ -12,6 +13,7 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 
+app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
