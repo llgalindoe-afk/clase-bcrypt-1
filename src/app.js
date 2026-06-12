@@ -1,6 +1,7 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import authRouter from "./routes/authRoutes.js"
+import productsRouter from "./routes/products.routes.js"
 import dotenv from 'dotenv';
 dotenv.config();
 // Validar variables críticas obligatorias
@@ -16,5 +17,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 app.use(authRouter)
+app.use(productsRouter)
 
 export default app
